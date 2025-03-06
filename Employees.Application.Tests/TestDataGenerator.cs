@@ -1,12 +1,29 @@
-﻿using Employees.Application.Models;
+﻿using Employees.Application.DTOs;
+using Employees.Application.Models;
 
 namespace Employees.Application.Tests;
 
 public static class TestDataGenerator
 {
-    public static Employee CreateValidEmployee()
+    public static Employee CreateValidEmployee(Guid? id = null)
     {
         return new Employee
+        {
+            Title = "Mr",
+            EmployeeNo = 1,
+            Firstname = "John",
+            Surname = "Doe",
+            DOB = DateOnly.Parse("1985-01-01"),
+            Email = "j.doe@email.com",
+            Address = "Somewhere",
+            Gender = "Male",
+            Id = id ?? Guid.NewGuid()
+        };
+    }
+
+    public static CreateEmployeeDto CreateValidCreateEmployeeDto(Guid? id = null)
+    {
+        return new CreateEmployeeDto
         {
             Title = "Mr",
             Firstname = "John",
@@ -15,13 +32,13 @@ public static class TestDataGenerator
             Email = "j.doe@email.com",
             Address = "Somewhere",
             Gender = "Male",
-            Id = Guid.NewGuid()
+            Id = id ?? Guid.NewGuid()
         };
     }
 
-    public static Employee CreateInvalidDOBEmployee()
+    public static CreateEmployeeDto CreateInvalidDOBCreateEmployeeDto(Guid? id = null)
     {
-        return new Employee
+        return new CreateEmployeeDto
         {
             Title = "Mr",
             Firstname = "John",
@@ -30,8 +47,7 @@ public static class TestDataGenerator
             Email = "j.doe@email.com",
             Address = "Somewhere",
             Gender = "Male",
-            Id = Guid.NewGuid()
+            Id = id ?? Guid.NewGuid()
         };
     }
-
 }

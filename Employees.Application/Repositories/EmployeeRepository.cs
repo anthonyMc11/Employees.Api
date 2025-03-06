@@ -1,14 +1,17 @@
-﻿using Employees.Application.Models;
+﻿using Employees.Application.DTOs;
+using Employees.Application.Models;
+using Employees.Application.Mapping;
 
 namespace Employees.Application.Repositories;
 
 public class EmployeeRepository : IEmployeeRepository
 {
     private readonly List<Employee> _employees = [];
+    private int _employeeNumberCounter = 0;
 
-    public Task<bool> CreateAsync(Employee employee)
+    public Task<bool> CreateAsync(CreateEmployeeDto dto)
     {
-        _employees.Add(employee);
+        _employees.Add(dto.MapToEmployee(++_employeeNumberCounter));
         return Task.FromResult(true);
     }
 

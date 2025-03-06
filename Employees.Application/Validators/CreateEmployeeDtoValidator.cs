@@ -1,15 +1,14 @@
-﻿using Employees.Application.Models;
+﻿using Employees.Application.DTOs;
 using Employees.Application.Repositories;
 using FluentValidation;
-using Microsoft.VisualBasic;
 
 namespace Employees.Application.Validators;
 
-public class EmployeeValidator : AbstractValidator<Employee>
+public class CreateEmployeeDtoValidator : AbstractValidator<CreateEmployeeDto>
 {
     private readonly IEmployeeRepository _employeeRepository;
 
-    public EmployeeValidator(IEmployeeRepository employeeRepository)
+    public CreateEmployeeDtoValidator(IEmployeeRepository employeeRepository)
     {
         _employeeRepository = employeeRepository;
 
@@ -39,7 +38,7 @@ public class EmployeeValidator : AbstractValidator<Employee>
             .MustAsync(ValidateEmailAsync)
             .WithMessage("An employee with this email address already exists");
     }
-    private async Task<bool> ValidateEmailAsync(Employee employee, string email, CancellationToken token = default)
+    private async Task<bool> ValidateEmailAsync(CreateEmployeeDto employee, string email, CancellationToken token = default)
     {
         var existingEmployee = await _employeeRepository.GetEmployeeByEmail(email);
         if (existingEmployee is not null)

@@ -11,10 +11,20 @@ public class EmployeesController(IEmployeeService employeeService) : Controller
     [HttpPost(ApiEndpoints.Employees.Create)]
     public async Task<IActionResult> Create([FromBody] CreateEmployeeRequest request, CancellationToken token)
     {
-        var employee = request.MapToEmployee();
+        var employee = request.MapToEmployeeDto();
         var result = await employeeService.CreateAsync(employee);
 
-        return CreatedAtAction(nameof(Get), new { id = employee.Id}, employee.MapToEmployeeResponse());
+        if (result)
+        {
+            var newEmployee = await employeeService.GetEmployeeById(employee.Id);
+            return CreatedAtAction(nameof(Get), new { id = employee.Id }, newEmployee.MapToEmployeeResponse());
+        }
+        else
+        {
+            return new ConflictResult();
+        }
+
+        
     }
 
     [HttpGet(ApiEndpoints.Employees.Get)]

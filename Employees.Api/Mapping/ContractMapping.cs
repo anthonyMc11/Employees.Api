@@ -1,4 +1,5 @@
-﻿using Employees.Application.Models;
+﻿using Employees.Application.DTOs;
+using Employees.Application.Models;
 using Employees.Contracts.Requests;
 using Employees.Contracts.Responses;
 
@@ -6,9 +7,10 @@ namespace Employees.Api.Mapping;
 
 public static class ContractMapping
 {
-    public static Employee MapToEmployee(this CreateEmployeeRequest request)
+    public static CreateEmployeeDto MapToEmployeeDto(this CreateEmployeeRequest request)
     {
-        return new Employee {
+        return new CreateEmployeeDto
+        {
             Id = Guid.NewGuid(),
             Title = request.Title,
             Firstname = request.Firstname,
@@ -25,6 +27,7 @@ public static class ContractMapping
         return new EmployeeResponse
         {
             Id = employee.Id,
+            EmployeeNo = employee.EmployeeNo,
             Title = employee.Title,
             Firstname = employee.Firstname,
             Surname = employee.Surname,

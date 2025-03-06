@@ -1,3 +1,4 @@
+using Employees.Api.Mapping;
 using Employees.Application;
 internal class Program
 {
@@ -20,6 +21,8 @@ internal class Program
         {
             app.MapOpenApi();
         }
+
+        app.UseMiddleware<ValidationMappingMiddleware>();
 
         app.UseAuthorization();
 

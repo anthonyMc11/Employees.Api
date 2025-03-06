@@ -3,6 +3,7 @@
 public class EmployeeResponse
 {
     public required Guid Id { get; init; }
+    public required int EmployeeNo { get; init; }
     public required string Title { get; init; }
     public required string Firstname { get; init; }
     public required string Surname { get; init; }
