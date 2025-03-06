@@ -12,7 +12,6 @@ public class EmployeeResponse
     public required string Address { get; init; }
 }
 
-
 public class EmployeesResponse
 {
     public required IEnumerable<EmployeeResponse> Items { get; init; } = Enumerable.Empty<EmployeeResponse>();

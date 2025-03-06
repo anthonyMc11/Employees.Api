@@ -1,34 +1,25 @@
 ﻿using Employees.Application.Models;
 
-namespace Employees.Application.Repositories
+namespace Employees.Application.Repositories;
+
+public class EmployeeRepository : IEmployeeRepository
 {
-    public class EmployeeRepository : IEmployeeRepository
+    private readonly List<Employee> _employees = [];
+
+    public Task<bool> CreateAsync(Employee employee)
     {
-        private readonly List<Employee> _employees = [];
-
-        public Task<bool> CreateAsync(Employee employee)
-        {
-            _employees.Add(employee);
-            return Task.FromResult(true);
-        }
-
-        public Task<IEnumerable<Employee>> GetAllEmployeesAsync()
-        {
-            return Task.FromResult(_employees.AsEnumerable());
-        }
-
-        public Task<Employee?> GetEmployeeById(Guid id)
-        {
-            var employee = _employees.SingleOrDefault(x => x.Id == id);
-            return Task.FromResult(employee);
-        }
+        _employees.Add(employee);
+        return Task.FromResult(true);
     }
 
-    public interface IEmployeeRepository
+    public Task<IEnumerable<Employee>> GetAllEmployeesAsync()
     {
-        Task<bool> CreateAsync(Employee employee);
+        return Task.FromResult(_employees.AsEnumerable());
+    }
 
-        Task<Employee?> GetEmployeeById(Guid id);
-        Task<IEnumerable<Employee>> GetAllEmployeesAsync();
+    public Task<Employee?> GetEmployeeById(Guid id)
+    {
+        var employee = _employees.SingleOrDefault(x => x.Id == id);
+        return Task.FromResult(employee);
     }
 }
