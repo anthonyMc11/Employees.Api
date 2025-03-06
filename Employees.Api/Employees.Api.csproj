@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Employees.Application\Employees.Application.csproj" />
+    <ProjectReference Include="..\Employees.Contracts\Employees.Contracts.csproj" />
   </ItemGroup>
 
 </Project>
