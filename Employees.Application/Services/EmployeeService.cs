@@ -1,13 +1,15 @@
 ﻿using Employees.Application.Models;
 using Employees.Application.Repositories;
+using FluentValidation;
 
 namespace Employees.Application.Services;
 
-public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployeeService
+public class EmployeeService(IEmployeeRepository employeeRepository, IValidator<Employee> employeeValidator) : IEmployeeService
 {
-    public Task<bool> CreateAsync(Employee employee)
+    public async Task<bool> CreateAsync(Employee employee)
     {
-        return employeeRepository.CreateAsync(employee);
+        await employeeValidator.ValidateAndThrowAsync(employee);
+        return await employeeRepository.CreateAsync(employee);
     }
 
     public Task<IEnumerable<Employee>> GetAllEmployeesAsync()

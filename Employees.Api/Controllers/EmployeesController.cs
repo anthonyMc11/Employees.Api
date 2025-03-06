@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Employees.Api.Controllers;
 
 [ApiController]
-public class EmployeesController(IEmployeeService employeeService, ILogger<EmployeesController> logger) : Controller
+public class EmployeesController(IEmployeeService employeeService) : Controller
 {
     [HttpPost(ApiEndpoints.Employees.Create)]
     public async Task<IActionResult> Create([FromBody] CreateEmployeeRequest request, CancellationToken token)

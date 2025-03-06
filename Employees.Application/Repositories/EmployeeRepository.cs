@@ -22,4 +22,10 @@ public class EmployeeRepository : IEmployeeRepository
         var employee = _employees.SingleOrDefault(x => x.Id == id);
         return Task.FromResult(employee);
     }
+
+    public Task<Employee?> GetEmployeeByEmail(string email)
+    {
+        var employee = _employees.SingleOrDefault(x => x.Email == email);
+        return Task.FromResult(employee);
+    }
 }
