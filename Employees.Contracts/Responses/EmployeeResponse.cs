@@ -1,6 +1,6 @@
 ﻿namespace Employees.Contracts.Responses;
 
-public class EmployeeResponse
+public record EmployeeResponse
 {
     public required Guid Id { get; init; }
     public required int EmployeeNo { get; init; }

@@ -1,4 +1,5 @@
-﻿using Employees.Application.Models;
+﻿using Employees.Application.DTOs;
+using Employees.Application.Models;
 using Employees.Application.Repositories;
 using Employees.Application.Services;
 using FluentValidation;
@@ -10,7 +11,7 @@ public class GivenAnEmployeeService
 {
     private readonly EmployeeService _sut;
     private readonly Mock<IEmployeeRepository> _mockRepository = new();
-    private readonly Mock<IValidator<Employee>> _mockValdiator = new();
+    private readonly Mock<IValidator<CreateEmployeeDto>> _mockValdiator = new();
 
 
     public GivenAnEmployeeService()
@@ -24,8 +25,8 @@ public class GivenAnEmployeeService
         _mockValdiator.Setup(x => x.ValidateAsync(It.IsAny<IValidationContext>(),It.IsAny<CancellationToken>()))
             .ThrowsAsync(new ValidationException("Something is wrong"));
         
-        var employee = TestDataGenerator.CreateValidEmployee();
-        await Assert.ThrowsAsync<ValidationException>(() => _sut.CreateAsync(employee)); 
+        var employeeDto = TestDataGenerator.CreateValidCreateEmployeeDto();
+        await Assert.ThrowsAsync<ValidationException>(() => _sut.CreateAsync(employeeDto)); 
     }
 
 }
